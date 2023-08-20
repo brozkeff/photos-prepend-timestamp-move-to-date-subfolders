@@ -19,6 +19,11 @@ The naming format after renaming is: `YYYYMMDD-HHmmss-ORIGINALFILENAME.ext`.
 - Timestamp preservation: The os.rename method does not modify timestamps. Therefore, timestamps from the original photos should be preserved.
 - Works for JPG files. Could support iPhone HEIC/HEIF but metadata extraction may not work (not tested). Pillow has limited support for HEIF/HEIC files. To process metadata another library like pyheif or pillow-heif may be needed. Currently not implemented, but it may work using filesystem timestamps.
 
+## Changelog
+
+2023-08-20
+: initial version
+
 ## Original ChatGPT (GPT-4) Prompt
 
 Create a Python script that will batch rename filenames of photos in the current directory, create subfolders in the form  `YYYY-MM-DD` and move photos to the respective subfolders based on the date.
