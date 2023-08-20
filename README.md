@@ -10,13 +10,14 @@ This script renames photos in the current directory based on their EXIF or files
 
 The naming format after renaming is: `YYYYMMDD-HHmmss-ORIGINALFILENAME.ext`.
 
-## Requirements
+## Requirements and notes
 
 - You need to have PIL from the Pillow library installed
 - This script assumes you run it in the directory with the photos
 - The revert script only undoes the renaming and moving. If you had files with the same name as the folders this script creates, there will be issues.
 - Using EXIF data might not always work, especially if the image doesn't have it or if it's corrupt. Always have a backup before running scripts like this on your data.
 - Timestamp preservation: The os.rename method does not modify timestamps. Therefore, timestamps from the original photos should be preserved.
+- Works for JPG files. Could support iPhone HEIC/HEIF but metadata extraction may not work (not tested). Pillow has limited support for HEIF/HEIC files. To process metadata another library like pyheif or pillow-heif may be needed. Currently not implemented, but it may work using filesystem timestamps.
 
 ## Original ChatGPT (GPT-4) Prompt
 

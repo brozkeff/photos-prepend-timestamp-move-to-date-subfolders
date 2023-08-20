@@ -22,7 +22,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Description: This script renames photos in the current directory based on their EXIF or filesystem creation date and time, then moves them into subfolders following the YYYY-MM-DD format.
+Description: This script renames photos in the current directory based on their
+EXIF or filesystem creation date and time, then moves them into subfolders
+following the YYYY-MM-DD format.
 The naming format after renaming is: YYYYMMDD-HHmmss-ORIGINALFILENAME.ext.
 If run with the -h parameter, it displays this help message.
 """
@@ -60,17 +62,21 @@ from PIL import Image
 
 # Step 2: Confirm with the user to proceed
 proceed = input("Do you want to proceed with renaming and moving photos? (yes/no): ")
-if proceed.lower() != 'yes':
+if proceed.lower() not in ['y', 'yes']:
     exit("Operation aborted by the user.")
 
 # Creating a log file and revert script
-with open("logfile.txt", "w") as log, open("revert_script.py", "w") as revert_script:
-    revert_script.write("import os\n\n")
+current_timestamp = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
+with open(f"logfile_{current_timestamp}.txt", "w") as log, open("revert_script.py", "w") as revert_script:
+    revert_script.write("# Generated on {}\nimport os\n\n".format(current_timestamp))
     
     # Step 3: Iterating through each file in the current directory
     for filename in os.listdir():
-        # We are only interested in image files with typical extensions
-        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+        # We are only interested in image files with typical extensions from cameras and phones
+        # Pillow has limited support for HEIF/HEIC files.
+        # To process metadata another library like pyheif or pillow-heif may be needed.
+        # Currently not implemented and HEIF/HEIC behaviour is not tested.
+        if filename.lower().endswith(('.jpg', '.jpeg', '.heif', '.heic')):
             try:
                 # Open image using Pillow
                 with Image.open(filename) as img:
