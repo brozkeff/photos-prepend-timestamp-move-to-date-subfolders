@@ -61,7 +61,7 @@ import datetime
 from PIL import Image
 
 # Step 2: Confirm with the user to proceed
-proceed = input("Do you want to proceed with renaming and moving photos? (yes/no): ")
+proceed = input("Do you want to proceed with renaming (prepending timestamp) and moving photos to date subfolders? (yes/no): ")
 if proceed.lower() not in ['y', 'yes']:
     exit("Operation aborted by the user.")
 
